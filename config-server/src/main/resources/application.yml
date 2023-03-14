@@ -1,0 +1,31 @@
+server:
+  port: 9000 # 端口
+spring:
+  application:
+    name: config-server # 实例名称
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/GeorgeChan/spring-cloud-parent.git # git仓库的地址
+          search-paths: config-file/dev,config-file/pro,config-file/test  # git仓库地址下的相对地址，可以配置多个，用,分割。
+          username: wasd2587  #用户名
+          password: a3388110
+  # rabbitmq 配置
+  rabbitmq:
+    host: 101.42.251.121
+    port: 5672
+    username: admin
+    password: admin
+# 配置注册中心
+eureka:
+  client:
+    service-url: # 注册中心地址
+      defaultZone: http://localhost:8101/eureka/
+
+#  springboot 2.x 默认只开启了info、health的访问，*代表开启所有访问
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
