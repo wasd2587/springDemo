@@ -6,7 +6,7 @@ spring:
     config:
       name: config-server # 配置文件的前缀
       profile: dev # 配置文件环境标识
-      label: master # 分支
+      #label: master # 分支
       discovery:
         enabled: true # 开启config服务发现支持
         service-id: config-server # 配置中心server端的name （service-id存在就把uri删掉）
@@ -16,7 +16,7 @@ spring:
         enabled: true
   #  消息总线----消息队列配置
   rabbitmq:
-    host: localhost
+    host: 101.42.251.121
     port: 5672
     username: admin
     password: admin
@@ -24,7 +24,7 @@ spring:
 eureka:
   client:
     service-url: # 注册中心地址
-      defaultZone: http://localhost:8101/eureka/
+      defaultZone: http://localhost:8761/eureka/
 # springboot 2.x 默认只开启了info、health的访问，*代表开启所有访问
 management:
   endpoints:
