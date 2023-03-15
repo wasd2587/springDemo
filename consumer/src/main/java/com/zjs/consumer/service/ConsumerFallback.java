@@ -1,4 +1,4 @@
-package com.zjs.product1.service;
+package com.zjs.consumer.service;
 
 import org.springframework.stereotype.Component;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  * @create 2023/3/14 15:52
  */
 @Component
-public class ProductRemoteFallback implements ProduceRemote{
+public class ConsumerFallback implements ConsumerService{
 
     @Override
     public String test(String name) {

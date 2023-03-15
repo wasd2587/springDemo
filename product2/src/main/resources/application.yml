@@ -1,2 +1,12 @@
 server:
   port: 8107
+spring:
+  application:
+    name: eureka-client-producer # 实例名称，唯一标识
+eureka:
+  client:
+    service-url: # 指向注册中心
+      defaultZone: http://localhost:8761/eureka/
+feign:
+  hystrix:  #开启熔断
+    enabled: true

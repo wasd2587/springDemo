@@ -20,8 +20,8 @@ spring:
   rabbitmq:
     host: 101.42.251.121
     port: 5672
-    username: admin
-    password: admin
+    username: mqtest
+    password: a3388110
 # 配置注册中心
 eureka:
   client:
