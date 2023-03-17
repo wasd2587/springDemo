@@ -17,13 +17,28 @@ import javax.security.auth.login.FailedLoginException;
 @Slf4j
 public class ProductService implements ProduceRemote {
     @Override
-    @SneakyThrows
     public String test(String name){
-        if (System.currentTimeMillis() % 3 == 0){
-            throw  new Exception("123");
+        String result = null;
+        try {
+            Thread.sleep(2000);
+            result = "\"HI \" + name + \",I'm P1\"";
+            log.info(result);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        String result = "\"HI \" + name + \",I'm P1\"";
-        log.info(result);
+        return result;
+    }
+
+    @Override
+    public String methodOne(String name) {
+        String result = null;
+        try {
+            //Thread.sleep(2000);
+            result = "method + " + name;
+            log.info(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return result;
     }
 }

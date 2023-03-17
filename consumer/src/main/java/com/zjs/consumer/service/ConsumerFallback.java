@@ -14,4 +14,9 @@ public class ConsumerFallback implements ConsumerService{
     public String test(String name) {
         return "error";
     }
+
+    @Override
+    public String methodOne(String name) {
+        return "method ONE error";
+    }
 }

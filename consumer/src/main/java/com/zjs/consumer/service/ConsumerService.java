@@ -15,4 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface ConsumerService {
     @GetMapping("/test/{name}")
     String test(@PathVariable("name") String name);
+
+    @GetMapping("/methodOne/{name}")
+    String methodOne(@PathVariable("name") String name);
 }

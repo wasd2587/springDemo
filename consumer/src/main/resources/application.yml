@@ -8,3 +8,15 @@ eureka:
 feign:
   hystrix:
     enabled: true
+  client:
+    config:
+      default:
+        ConnectTimeOut: 5000
+        ReadTimeOut: 5000
+# springboot 2.x 默认只开启了info、health的访问，*代表开启所有访问
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: /

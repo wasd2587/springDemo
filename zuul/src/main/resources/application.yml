@@ -2,8 +2,8 @@ server:
   port: 8102
 spring:
   application:
-    name: zuul # ÊµÀıÃû³Æ Î¨Ò»±êÊ¶
-  # springboot½â¾öÖĞÎÄÂÒÂëÎÊÌâ
+    name: zuul # å®ä¾‹åç§° å”¯ä¸€æ ‡è¯†
+  # springbootè§£å†³ä¸­æ–‡ä¹±ç é—®é¢˜
   http:
     encoding:
       charset: UTF-8
@@ -11,14 +11,14 @@ spring:
       force: true
 eureka:
   client:
-    service-url: # ×¢²áÖĞĞÄµØÖ·
+    service-url: # æ³¨å†Œä¸­å¿ƒåœ°å€
       defaultZone: http://localhost:8761/eureka/
 
 zuul:
-  routes: #×Ô¶¨ÒåÂ·ÓÉÓ³Éä (Â·ÓÉ²»ÄÜÖØ¸´£¬ÏÂÃæ»á°ÑÉÏÃæµÄ¸²¸Ç)
+  routes: #è‡ªå®šä¹‰è·¯ç”±æ˜ å°„ (è·¯ç”±ä¸èƒ½é‡å¤ï¼Œä¸‹é¢ä¼šæŠŠä¸Šé¢çš„è¦†ç›–)
     eureka-client-producer: /api/producer/**
     eureka-client-consumers: /api/consumer/**
-  # ºöÂÔµÄ·şÎñ
+  # å¿½ç•¥çš„æœåŠ¡
   ignored-patterns: /*-producer/**
-#  Ãô¸ĞµÄÍ·ĞÅÏ¢ Ä¬ÈÏCookieÊÇ²»ÄÜÍ¨¹ıÍø¹ØÍ·ĞÅÏ¢´«µİµÄ
+#  æ•æ„Ÿçš„å¤´ä¿¡æ¯ é»˜è®¤Cookieæ˜¯ä¸èƒ½é€šè¿‡ç½‘å…³å¤´ä¿¡æ¯ä¼ é€’çš„
 #  sensitive-headers:
