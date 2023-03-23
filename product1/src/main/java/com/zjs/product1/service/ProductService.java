@@ -1,11 +1,18 @@
 package com.zjs.product1.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.netflix.discovery.converters.Auto;
+import com.zjs.product1.dao.UserMapper;
+import com.zjs.product1.entity.UserDO;
+import com.zjs.product1.utils.MyUtil;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
 
 import javax.security.auth.login.FailedLoginException;
+import java.util.List;
 
 /**
  * @author 名字
@@ -14,31 +21,10 @@ import javax.security.auth.login.FailedLoginException;
  */
 
 @Service
-@Slf4j
-public class ProductService implements ProduceRemote {
-    @Override
-    public String test(String name){
-        String result = null;
-        try {
-            Thread.sleep(2000);
-            result = "\"HI \" + name + \",I'm P1\"";
-            log.info(result);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    @Override
-    public String methodOne(String name) {
-        String result = null;
-        try {
-            //Thread.sleep(2000);
-            result = "method + " + name;
-            log.info(result);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
+public interface ProductService{
+    public String test(String name);
+    public String methodOne(String name);
+    public List<UserDO> selectUser(String name);
+    public String batchInsert(long num);
+    public String batchInsert1(long num);
 }

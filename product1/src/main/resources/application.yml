@@ -3,6 +3,50 @@ server:
 spring:
   application:
     name: eureka-client-producer # 实例名称，唯一标识
+  # JDBC
+  datasource:
+    url: jdbc:mysql://101.42.251.121:3306/test?serverTimezone=Asia/Shanghai&useUnicode=true&charsetEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
+    username: root
+    password: zjs5959
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    initialSize: 5
+    minIdle: 5
+    maxActive: 30
+    maxWait: 60000
+    showsql: true
+    #druid:
+    #  filter:
+    #    slf4j:
+    #      enabled: true # 开启日志功能
+    #    wall:
+    #      enabled: true # 开启防火墙功能
+    #    stat:
+    #      enabled: true # 开启sql监控功能
+    #      slow-sql-millis: 1000  # 配置SQL慢的标准
+    #      log-slow-sql: true # 是否开启记录执行慢的sql
+    #  stat-view-servlet:
+    #    enabled: true # 开启监控页功能
+    #    login-username: rex # 监控页登录账号
+    #    login-password: pwdofrex # 监控页登录密码
+    #    reset-enable: false # 配置是否允许重置监控信息
+    #  web-stat-filter:
+    #    enabled: true # 开启web监控
+    #    exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*" # web监控白名单
+
+
+mybatis-plus:
+  mapper-locations: mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.zjs.product1
+logging:
+  level:
+    root: info
+    com:
+      baomidou:
+        mybatisplus: DEBUG
+
 eureka:
   client:
     service-url: # 指向注册中心
@@ -10,3 +54,4 @@ eureka:
 feign:
   hystrix:  #开启熔断
     enabled: true
+

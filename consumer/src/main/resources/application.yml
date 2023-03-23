@@ -20,3 +20,22 @@ management:
       exposure:
         include: "*"
       base-path: /
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000   #默认
+        timeout:
+          enabled: true
+      #serverMethod:
+      #  execution:
+      #    isolation:
+      #      thread:
+      #        timeoutInMilliseconds: 10000
+  threadpool:
+    default:
+      coreSize: 1 #并发执行的最大线程数，默认10
+      maxQueueSize: -1 #BlockingQueue的最大队列数，默认值-1
+      queueSizeRejectionThreshold: 3

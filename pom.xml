@@ -12,6 +12,7 @@
     <artifactId>root</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>spring-cloud-project</name>
+    <packaging>pom</packaging>
     <modules>
         <module>common</module>
         <module>base</module>
@@ -47,6 +48,8 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+
         <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
