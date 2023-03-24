@@ -1,4 +1,4 @@
-package com.zjs.product1;
+package com.zjs.product1.config;
 
 import com.alibaba.druid.filter.Filter;
 import javax.sql.DataSource;
@@ -6,12 +6,15 @@ import javax.sql.DataSource;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.wall.WallConfig;
 import com.alibaba.druid.wall.WallFilter;
+import com.baomidou.mybatisplus.core.config.GlobalConfig;
+import com.baomidou.mybatisplus.core.injector.ISqlInjector;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
+import com.zjs.product1.properties.DBProperties;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -95,7 +98,7 @@ public class JdbcConfig {
     }
 
     @Bean
-    public SqlSessionFactory sqlSessionFactory(){
+    public SqlSessionFactory sqlSessionFactory(@Qualifier("globalConfig") GlobalConfig globalConfig){
         SqlSessionFactory factory = null;
         try {
             MybatisSqlSessionFactoryBean  sessionFactoryBean = new MybatisSqlSessionFactoryBean();
@@ -117,7 +120,7 @@ public class JdbcConfig {
 
             Resource[] result = new Resource[filterResourceList.size()];
             sessionFactoryBean.setMapperLocations(filterResourceList.toArray(result));
-
+            sessionFactoryBean.setGlobalConfig(globalConfig);
             factory = (SqlSessionFactory) sessionFactoryBean.getObject();
         } catch (Exception e) {
             e.printStackTrace();
@@ -145,5 +148,12 @@ public class JdbcConfig {
                 return super.getAsyncUncaughtExceptionHandler();
             }
         };
+    }
+
+    @Bean
+    public GlobalConfig globalConfig(@Qualifier("easySqlInjector") ISqlInjector easySqlInjector){
+        GlobalConfig globalConfig = new GlobalConfig();
+        globalConfig.setSqlInjector(easySqlInjector);
+        return globalConfig;
     }
 }

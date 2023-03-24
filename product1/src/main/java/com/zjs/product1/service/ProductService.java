@@ -25,6 +25,7 @@ public interface ProductService{
     public String test(String name);
     public String methodOne(String name);
     public List<UserDO> selectUser(String name);
+    public List<UserDO> selectUserById(String id);
     public String batchInsert(long num);
     public String batchInsert1(long num);
 }

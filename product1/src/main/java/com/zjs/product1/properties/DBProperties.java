@@ -1,4 +1,4 @@
-package com.zjs.product1;
+package com.zjs.product1.properties;
 
 /**
  * @author zjs

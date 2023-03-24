@@ -64,6 +64,12 @@ public class ProductServiceImpl  implements ProductService {
     }
 
     @Override
+    public List<UserDO> selectUserById(String id) {
+        List<UserDO> list = userMapper.selectList(Wrappers.lambdaQuery(UserDO.class).eq(UserDO::getId, id));
+        return list;
+    }
+
+    @Override
     public String batchInsert(long num) {
         long start = System.currentTimeMillis();
         log.info("start time",start);

@@ -47,6 +47,12 @@ public class ProductController implements ProduceRemote{
         return productService.selectUser(name);
     }
 
+    @GetMapping("/selectUserById/{id}")
+    @ResponseBody
+    public List<UserDO> selectUserbById(@PathVariable("id")String id){
+        return productService.selectUserById(id);
+    }
+
     @GetMapping("/batchInsert/{num}")
     @ResponseBody
     public String batchInsert(@PathVariable("num")long num){
