@@ -1,5 +1,10 @@
 package com.zjs.product1.utils;
 
+import org.apache.commons.lang.time.DateUtils;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 /**
@@ -20,6 +25,7 @@ public class MyUtil {
 
     static String boyName = "伟刚勇毅俊峰强军平保东文辉力明永健世广志义兴良海山仁波宁贵福生龙元全国胜学祥才发武新利清飞彬富顺信子杰涛昌成康星光天达安岩中茂进林有坚和彪博诚先敬震振壮会思群豪心邦承乐绍功松善厚庆磊民友裕河哲江超浩亮政谦亨奇固之轮翰朗伯宏言若鸣朋斌梁栋维启克伦翔旭鹏泽晨辰士以建家致树炎德行时泰盛雄琛钧冠策腾楠榕风航弘";
 
+    static String ordName = "牙膏-5.00 牙刷-6.00 洗手液-7.00 洗面奶-22.00 帽子-32.12 手套-23.18 冰箱-1999 电视机-3999.99 手机-5999 平板电脑-3599 显卡-12999 显示器-3499";
     public static String randFamilyName() {
         String str = "";
         int strLen;
@@ -114,14 +120,38 @@ public class MyUtil {
         return x;
     }
 
-    public static void main(String[] args) {
-        MyUtil myUtil = new MyUtil();
-        for (int i = 0; i < 3; i++) {
-            System.out.println("第" + i + "轮");
-            System.out.println(myUtil.randAge());
-            System.out.println(myUtil.randName(myUtil.randSex()));
-            System.out.println(MyUtil.getRandomIp());
+    public static String getRandomOrd(){
+        String[] s = ordName.split(" ");
+        int index = new Random().nextInt(s.length - 1);
+        return s[index];
+    }
+
+    public static Date randomDate(){
+        long date = 0;
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date beginDate = format.parse("2023-01-01 00:00:00");
+            Date endDate = format.parse("2023-03-31 00:00:00");
+            if(beginDate.getTime() >= endDate.getTime()){
+                return new Date();
+            }
+            date = random(beginDate.getTime(),endDate.getTime());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+        return new Date(date);
+    }
+    public static long random(long begin,long end){
+        long rtn = begin + (long)(Math.random() * (end - begin));
+        if(rtn == begin || rtn == end){
+            return random(begin,end);
+        }
+        return rtn;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(MyUtil.randomDate());
     }
 }
 
