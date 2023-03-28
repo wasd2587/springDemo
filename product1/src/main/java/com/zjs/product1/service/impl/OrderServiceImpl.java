@@ -1,16 +1,23 @@
 package com.zjs.product1.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zjs.product1.Enum.OrdStasEnum;
 import com.zjs.product1.dao.OrderMapper;
+import com.zjs.product1.dao.UserMapper;
 import com.zjs.product1.entity.OrderDO;
+import com.zjs.product1.entity.UserDO;
 import com.zjs.product1.service.OrderSeervice;
 import com.zjs.product1.utils.MyUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 
 /**
  * @author zjs
@@ -18,20 +25,26 @@ import java.util.Date;
  * @create 2023/3/27 16:19
  */
 @Service
-public class OrderServiceImpl implements OrderSeervice {
+@Slf4j
+public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderDO> implements OrderSeervice {
     @Resource
     private OrderMapper orderMapper;
+    private static final int INSERT_NUM = 1000;
 
     @Override
     public String batchMockInsert(Integer num) {
+        int index = 1;
         ArrayList<OrderDO> list = new ArrayList<>();
-        if (num > 50000){
+        if (num > INSERT_NUM){
             while (num > 0){
-                for (int i = 0; i < 50000; i++) {
+                for (int i = 0; i < INSERT_NUM; i++) {
                     list.add(this.build());
                 }
-                int i = orderMapper.insertBatchSomeColumn(list);
-                num = num - 50000;
+                //int i = orderMapper.insertBatchSomeColumn(list);
+                this.saveBatch(list,INSERT_NUM);
+                list.clear();
+                num = num - INSERT_NUM;
+                log.info("循环插入第" + index++ + "次");
             }
         }else {
             for (int i = 0; i < num; i++) {
@@ -41,6 +54,17 @@ public class OrderServiceImpl implements OrderSeervice {
         }
 
         return "succ";
+    }
+
+    @Override
+    public OrderDO getOrderByName(String name,int pageNum,int pageSize) {
+        /*orderMapper.selectList()*/
+        return null;
+    }
+
+    @Override
+    public String unionUserAndOrder() {
+        return null;
     }
 
     private OrderDO build(){
@@ -59,5 +83,37 @@ public class OrderServiceImpl implements OrderSeervice {
                 .updtTime(date)
                 .validFlag(true).build();
         return build;
+    }
+
+    /**
+     *
+     * @param entityList
+     * @param batchSize
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = {Exception.class})
+    public boolean saveBatch(Collection<OrderDO> entityList, int batchSize) {
+        try {
+            int size = entityList.size();
+            int idxLimit = Math.min(batchSize, size);
+            int i = 1;
+            //保存单批提交的数据集合
+            List<OrderDO> oneBatchList = new ArrayList<>();
+            for(Iterator<OrderDO> var7 = entityList.iterator(); var7.hasNext(); ++i) {
+                OrderDO element = var7.next();
+                oneBatchList.add(element);
+                if (i == idxLimit) {
+                    orderMapper.insertBatchSomeColumn(oneBatchList);
+                    //每次提交后需要清空集合数据
+                    oneBatchList.clear();
+                    idxLimit = Math.min(idxLimit + batchSize, size);
+                }
+            }
+        }catch (Exception e){
+            log.error("saveBatch fail",e);
+            return false;
+        }
+        return  true;
     }
 }

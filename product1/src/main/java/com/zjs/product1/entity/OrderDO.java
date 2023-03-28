@@ -24,6 +24,8 @@ import java.util.Date;
 public class OrderDO {
     @TableId
     private String id;
+    @TableField("uid")
+    private String uid;
     @TableField("sku_name")
     private String skuName;
     @TableField("sku_num")

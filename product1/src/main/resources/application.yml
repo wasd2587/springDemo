@@ -42,7 +42,7 @@ mybatis-plus:
   type-aliases-package: com.zjs.product1
 logging:
   level:
-    root: info
+    root: debug
     com:
       baomidou:
         mybatisplus: DEBUG

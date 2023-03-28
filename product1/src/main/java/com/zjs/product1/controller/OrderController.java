@@ -1,13 +1,7 @@
 package com.zjs.product1.controller;
 
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.zjs.product1.service.OrderSeervice;
-import com.zjs.product1.service.ProductService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -25,5 +19,10 @@ public class OrderController {
     @ResponseBody
     public String batchInsert(@PathVariable("num")Integer num){
         return orderSeervice.batchMockInsert(num);
+    }
+
+    @RequestMapping
+    public String unionUserAndOrder(){
+        return orderSeervice.unionUserAndOrder();
     }
 }
