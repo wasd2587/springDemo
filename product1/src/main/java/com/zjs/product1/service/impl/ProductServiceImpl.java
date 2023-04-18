@@ -3,6 +3,7 @@ package com.zjs.product1.service.impl;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.zjs.product1.dao.UserMapper;
 import com.zjs.product1.entity.UserDO;
+import com.zjs.product1.message.MessageProduceClient;
 import com.zjs.product1.service.ProductService;
 import com.zjs.product1.service.UserService;
 import com.zjs.product1.utils.MyUtil;
@@ -10,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +28,9 @@ public class ProductServiceImpl  implements ProductService {
 
     @Autowired
     private UserService userService;
+
+    @Resource
+    private MessageProduceClient produceClient;
 
     @Override
     public String test(String name){
@@ -109,5 +114,11 @@ public class ProductServiceImpl  implements ProductService {
         log.info("end time",end);
         log.info("spend time: " + ((double)(end - start))/ 1000.00);
         return b?"success":"fail";
+    }
+
+    @Override
+    public String msgPush(String msg) {
+        boolean b = produceClient.sendMessage("mytopic", msg.getBytes(), "1", "haha");
+        return b ? "success" : "fail";
     }
 }

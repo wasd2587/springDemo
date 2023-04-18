@@ -28,4 +28,5 @@ public interface ProductService{
     public List<UserDO> selectUserById(String id);
     public String batchInsert(long num);
     public String batchInsert1(long num);
+    public String msgPush(String num);
 }

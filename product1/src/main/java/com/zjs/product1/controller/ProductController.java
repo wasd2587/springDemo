@@ -5,10 +5,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.zjs.product1.entity.UserDO;
 import com.zjs.product1.service.ProduceRemote;
 import com.zjs.product1.service.ProductService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -63,6 +60,12 @@ public class ProductController implements ProduceRemote{
     @ResponseBody
     public String batchInsert1(@PathVariable("num")long num){
         return productService.batchInsert1(num);
+    }
+
+    @PostMapping("/msg/push")
+    @ResponseBody
+    public String msgPush(@RequestBody String json){
+        return productService.msgPush(json);
     }
 
     public String failback(String name){

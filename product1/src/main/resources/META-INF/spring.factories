@@ -1,0 +1,2 @@
+org.springframework.context.ApplicationContextInitializer=\
+com.zjs.product1.intializer.MyIntialinzer

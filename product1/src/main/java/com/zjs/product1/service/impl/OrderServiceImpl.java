@@ -1,14 +1,9 @@
 package com.zjs.product1.service.impl;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zjs.product1.Enum.OrdStasEnum;
 import com.zjs.product1.dao.OrderMapper;
-import com.zjs.product1.dao.UserMapper;
 import com.zjs.product1.entity.OrderDO;
-import com.zjs.product1.entity.UserDO;
 import com.zjs.product1.service.OrderSeervice;
 import com.zjs.product1.utils.MyUtil;
 import lombok.extern.slf4j.Slf4j;
